@@ -1,7 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParse = require('body-parser');
-const sequelize = require('sequelize');
+import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser';
+import sequelize from './database.js';
+import router from './routes/userRoutes.js'
 
 try {
     await sequelize.authenticate();
@@ -15,6 +16,7 @@ sequelize.sync();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/', router)
 
 app.listen(3000, () =>{
     console.log('Servidor rondando na porta 3000');
